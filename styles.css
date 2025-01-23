@@ -1,0 +1,73 @@
+table {
+  border-collapse: collapse;
+  width: 75%;
+  margin: 0 auto;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+
+#mainHeader{
+  color: brown;
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 40px;
+}
+
+.mainMenu{
+  background-color: bisque;
+  width: 20%;
+  vertical-align: top;
+  display: inline-block;
+}
+
+#subUploadFilesMenu{
+  background-color: bisque;
+  width: 50%;
+  margin-left: 100px;
+  display: inline-block;
+  display: none;
+}
+
+#subAddNewCourseMenu{
+  background-color: bisque;
+  width: 50%;
+  margin-left: 100px;
+  display: inline-block;
+  display: none;
+}
+
+#subManipulateCourseMenu{
+  background-color: bisque;
+  width: 50%;
+  margin-left: 100px;
+  display: inline-block;
+  display: none;
+}
+
+#subAddClassroomMenu{
+  background-color: bisque;
+  width: 50%;
+  margin-left: 100px;
+  display: inline-block;
+  display: none;
+}
+
+#subManipulateClassroomMenu{
+  background-color: bisque;
+  width: 50%;
+  margin-left: 100px;
+  display: inline-block;
+  display: none;
+}

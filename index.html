@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatic Course Planner | Group 12</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+
+  <h1 id="mainHeader">Automatic Course Planner</h1>
+
+  <div class="mainMenu">
+    <h3 class="subHeader">Choose an option</h3>
+
+    <form id="uploadFilesForm">
+      <button type="button" onclick="toggleElementVisibility('subUploadFilesMenu')">Upload Files</button>
+      <br><br>
+      <div id="subUploadFilesMenu" style="display: none;">
+        <form id="subUploadFilesForm" enctype="multipart/form-data">
+          Choose courses.csv:
+          <input type="file" id="coursesFile" name="coursesFile" accept=".csv"> <br><br><br><br><br>
+
+          Choose service.csv:
+          <input type="file" id="serviceFile" name="serviceFile" accept=".csv"> <br><br><br><br><br>
+
+          Choose busy.csv:
+          <input type="file" id="busyFile" name="busyFile" accept=".csv"> <br><br><br><br><br>
+
+          Choose classroom.csv:
+          <input type="file" id="classroomFile" name="classroomFile" accept=".csv"> <br><br><br>
+
+
+          <button type="button" onclick="readAllFiles();">Upload
+            the Files
+          </button>
+          <button type="button" onclick="parseDatas();">Process the Files
+          </button>
+          <input type="reset" value="Reset" style="margin-left: 20px;"> <br><br><br>
+
+        </form>
+      </div>
+    </form>
+
+    <form id="addNewCourseForm">
+      <button type="button" onclick="toggleElementVisibility('subAddNewCourseMenu')">Add New Course</button>
+      <br><br>
+      <div id="subAddNewCourseMenu" style="display: none;">
+        <form id="subAddNewCourseForm">
+          Code of the course: <input type="text" id='newCourseCode' required> <br><br>
+
+          Name of the course: <input type="text" id='newCourseName'> <br><br>
+
+          The year of the semester: <select id='newCourseYear'>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select> <br><br>
+
+          Credit: <input type="text" id='newCourseCredit'> <br><br>
+
+          Compulsory(C) or Elective(E): <select id='newCourse_c_or_e'>
+          <option value="C">C</option>
+          <option value="E">E</option>
+        </select> <br><br>
+
+          Department(D) or Service(S): <select id='newCourse_d_or_s'>
+          <option value="D">D</option>
+          <option value="S">S</option>
+        </select> <br><br>
+
+          Number of students: <input type="text" id='newCourseNumberOfStudents'> <br><br>
+
+          Name of the instructor: <input type="text" id='newCourseInstructorName'> <br><br>
+
+          Course hours preference: <select id='newCourseHoursPreference'>
+          <option value="3">3</option>
+          <option value="2+1">2+1</option>
+        </select> <br><br>
+
+          <button type="button" onclick="schedule.addNewCourse()">Add to the Schedule</button>
+          <input type="reset" value="Reset" style="margin-left: 20px; margin-bottom: 40px;">
+        </form>
+      </div>
+    </form>
+
+    <form id="manipulateCourseForm">
+      <button type="button" onclick="toggleElementVisibility('subManipulateCourseMenu')">Update the Course Information
+      </button>
+      <br><br>
+      <div id="subManipulateCourseMenu" style="display: none;">
+        <select id="selectCourseDropDown">
+          <!-- Sanırım dinamik olması için dersler buraya Javascript ile select tagına
+          id olarak verdiğim selectCourse ismi kullanılarak eklenmeli. -->
+        </select>
+
+
+        <form id="subManipulateCourseForm">
+
+          The year of the semester: <select>
+          <option value="first">1</option>
+          <option value="second">2</option>
+          <option value="third">3</option>
+          <option value="fourth">4</option>
+        </select> <br><br>
+
+          Number of students: <input type="text"> <br><br>
+
+          Course hours preference: <select>
+          <option value="3">3</option>
+          <option value="2+1">2+1</option>
+        </select> <br><br>
+
+          <button type="button" onclick="manipulateCourse()">Save</button> <!-- TODO: uygun parametreler lazım.-->
+          <input type="reset" value="Reset" style="margin-left: 20px; margin-bottom: 40px;">
+        </form>
+      </div>
+    </form>
+
+    <form id="addNewClassroomForm">
+      <button type="button" onclick="toggleElementVisibility('subAddClassroomMenu')">Add New Classroom</button>
+      <br><br>
+      <div id="subAddClassroomMenu" style="display: none;">
+        <form id="subAddClassroomForm">
+          ID of the classroom: <input type="text" id='newClassroomId' required> <br><br>
+
+          Capacity of the classroom: <input type="text" id='newClassroomCapacity'> <br><br>
+
+          <button type="button" onclick="schedule.addNewClassroom()">Add</button>
+          <input type="reset" value="Reset" style="margin-left: 20px; margin-bottom: 40px;">
+        </form>
+      </div>
+    </form>
+
+    <form id="manipulateClassroomForm">
+      <button type="button" onclick="toggleElementVisibility('subManipulateClassroomMenu')">Update the Classroom
+        Information
+      </button>
+      <br><br>
+      <div id="subManipulateClassroomMenu" style="display: none;">
+        <select id="selectClassroom">
+          <!-- Manipulate Course ile aynı durum var -->
+        </select>
+
+
+        <form id="subManipulateClassroomForm">
+          ID of the classroom: <input type="text"> <br><br>
+
+          Capacity of the classroom: <input type="text"> <br><br>
+
+          <button type="button" onclick="manipulateClassroom()">Save</button>
+          <input type="reset" value="Reset" style="margin-left: 20px; margin-bottom: 40px;">
+        </form>
+      </div>
+      <button type="button" onclick="schedule.abortSchedule();assignAllCourses();tableCreator()">Make an automatic
+        schedule
+      </button>
+      <br><br>
+
+      <button type="button" onclick="schedule.abortSchedule();tableCreator()">Reset The Schedule</button>
+      <br><br>
+    </form>
+  </div>
+
+
+  <table id='scheduleTable'>
+
+  </table>
+
+
+</div>
+
+<script src='main.js'></script>
+</body>
+</html>
